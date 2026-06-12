@@ -102,6 +102,37 @@ h2{font-size:clamp(30px,4.4vw,46px);max-width:14ch}
 .announce-cta:hover{background:#7A4520}
 @media(max-width:760px){.announce-tag{display:none}}
 
+/* ---------- coming-soon photo banner ---------- */
+.cs-banner{position:relative;height:340px;overflow:hidden;background:var(--ink)}
+@media(max-width:600px){.cs-banner{height:220px}}
+.cs-strip{display:flex;width:max-content;animation:cs-scroll 40s linear infinite;height:100%}
+.cs-strip img{height:100%;width:auto;object-fit:cover;flex-shrink:0;opacity:.72;filter:saturate(.85)}
+@keyframes cs-scroll{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.cs-strip{animation:none}}
+.cs-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(33,35,31,.55) 0%,rgba(33,35,31,.25) 45%,rgba(33,35,31,.55) 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  text-align:center;padding:0 24px;
+}
+.cs-overlay .cs-tag{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;
+  color:#E0A96F;display:flex;align-items:center;gap:10px;
+}
+.cs-overlay .cs-tag::before{
+  content:'';width:8px;height:8px;border-radius:50%;background:var(--stain);
+  box-shadow:0 0 0 3px rgba(154,91,46,.3);animation:pulse 2.4s ease-in-out infinite;
+}
+.cs-overlay h2{
+  margin:0;font-size:clamp(1.6rem,4vw,2.8rem);font-weight:800;
+  color:#fff;letter-spacing:-.01em;line-height:1.1;text-shadow:0 2px 20px rgba(0,0,0,.5);
+}
+.cs-overlay h2 em{color:var(--concrete);font-style:normal}
+.cs-overlay p{
+  margin:0;font-size:.95rem;color:rgba(236,233,226,.75);
+  max-width:460px;line-height:1.5;
+}
+
 /* ---------- header ---------- */
 header{
   position:sticky;top:0;z-index:50;
@@ -331,6 +362,34 @@ footer a{color:#B5B1A4;text-decoration:none}
     </div>
   </div>
   <a class="announce-cta" href="mailto:quotes@stoneprosd.com?subject=Reserve%20My%20Spot%20%E2%80%94%20StonePro%20SD&body=City%3A%20%0AProject%20type%3A%20%0AApproximate%20size%3A%20">RESERVE YOUR SPOT</a>
+</div>
+
+<!-- COMING SOON PHOTO BANNER -->
+<div class="cs-banner" aria-hidden="true">
+  <div class="cs-strip">
+    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=340&fit=crop&auto=format" alt="">
+    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=340&fit=crop&auto=format" alt="">
+    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=340&fit=crop&auto=format" alt="">
+    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&h=340&fit=crop&auto=format" alt="">
+    <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&h=340&fit=crop&auto=format" alt="">
+    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&h=340&fit=crop&auto=format" alt="">
+    <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&h=340&fit=crop&auto=format" alt="">
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=340&fit=crop&auto=format" alt="">
+    <!-- duplicate for seamless loop -->
+    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=340&fit=crop&auto=format" alt="">
+    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=340&fit=crop&auto=format" alt="">
+    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=340&fit=crop&auto=format" alt="">
+    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&h=340&fit=crop&auto=format" alt="">
+    <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&h=340&fit=crop&auto=format" alt="">
+    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&h=340&fit=crop&auto=format" alt="">
+    <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&h=340&fit=crop&auto=format" alt="">
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=340&fit=crop&auto=format" alt="">
+  </div>
+  <div class="cs-overlay">
+    <span class="cs-tag">NORTH COUNTY SAN DIEGO</span>
+    <h2>Coming soon<br>to <em>your city.</em></h2>
+    <p>We're launching across coastal North County — Encinitas, Del Mar, La Jolla, Carlsbad, and beyond. Reserve your spot before the schedule fills.</p>
+  </div>
 </div>
 
 <header>
