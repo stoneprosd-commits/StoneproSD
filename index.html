@@ -112,9 +112,32 @@ h2{font-size:clamp(30px,4.4vw,46px);max-width:14ch}
 .cs-overlay{
   position:absolute;inset:0;
   background:linear-gradient(to bottom,rgba(33,35,31,.55) 0%,rgba(33,35,31,.25) 45%,rgba(33,35,31,.55) 100%);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
-  text-align:center;padding:0 24px;
 }
+.cs-slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  text-align:center;padding:0 60px;opacity:0;pointer-events:none;
+  transition:opacity .8s ease;
+}
+.cs-slide.active{opacity:1}
+@media(prefers-reduced-motion:reduce){.cs-slide{transition:none}}
+.cs-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+  width:42px;height:42px;border-radius:50%;cursor:pointer;
+  border:1px solid rgba(236,233,226,.32);background:rgba(33,35,31,.45);
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(4px);transition:background .15s ease,border-color .15s ease;
+}
+.cs-arrow:hover{background:var(--stain);border-color:transparent}
+.cs-arrow svg{width:18px;height:18px;display:block}
+.cs-arrow.prev{left:16px}
+.cs-arrow.next{right:16px}
+@media(max-width:600px){.cs-arrow{width:36px;height:36px}.cs-slide{padding:0 50px}}
+.cs-slide .cs-price{
+  margin:0;font-size:.95rem;color:#E0A96F;letter-spacing:.04em;
+  max-width:480px;line-height:1.5;
+}
+.cs-slide .cs-price b{color:#fff;font-weight:700}
 .cs-overlay .cs-tag{
   font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;
   color:#E0A96F;display:flex;align-items:center;gap:10px;
@@ -152,6 +175,16 @@ header{
 .nav-links a{text-decoration:none;font-size:15px;font-weight:500;color:var(--ink-soft)}
 .nav-links a:hover{color:var(--ink)}
 .nav .btn{padding:11px 20px;font-size:14.5px}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.nav-toggle{
+  display:none;width:44px;height:44px;flex:none;cursor:pointer;
+  border:1px solid var(--line);border-radius:var(--radius);background:transparent;
+  flex-direction:column;align-items:center;justify-content:center;gap:5px;
+}
+.nav-toggle span{display:block;width:20px;height:2px;background:var(--ink);transition:transform .2s ease,opacity .2s ease}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 /* ---------- nav dropdowns ---------- */
 .nav-links .dd{position:relative;padding:18px 0;margin:-18px 0}
 .nav-links .dd>a::after{content:'\25BE';font-size:10px;margin-left:6px;color:var(--stain);display:inline-block;transition:transform .15s ease}
@@ -169,7 +202,28 @@ header{
 .dd-menu li{display:block}
 .dd-menu a{display:block;padding:9px 12px;border-radius:4px;font-size:14.5px;white-space:nowrap}
 .dd-menu a:hover{background:rgba(33,35,31,.07);color:var(--ink)}
-@media(max-width:860px){.nav-links{display:none}}
+@media(max-width:860px){
+  .nav{position:relative}
+  .nav-toggle{display:flex}
+  .nav-links{
+    display:none;position:absolute;top:calc(100% + 1px);left:0;right:0;
+    flex-direction:column;gap:0;background:var(--concrete);
+    border-bottom:1px solid var(--line);box-shadow:0 18px 36px rgba(33,35,31,.14);
+    padding:6px 0;z-index:55;
+  }
+  .nav-links.open{display:flex}
+  .nav-links>li{width:100%}
+  .nav-links>li>a{display:block;padding:13px 24px;font-size:16px;color:var(--ink)}
+  .nav-links .dd{padding:0;margin:0}
+  .nav-links .dd>a::after{content:''}
+  .nav-links .dd-menu{
+    position:static;opacity:1;visibility:visible;transform:none;
+    background:transparent;border:none;box-shadow:none;border-radius:0;
+    min-width:0;padding:0 0 6px;
+  }
+  .nav-links .dd-menu a{padding:9px 24px 9px 40px;font-size:14.5px;color:var(--ink-soft);white-space:normal}
+}
+@media(max-width:430px){.nav .btn{padding:10px 14px;font-size:13.5px}}
 
 /* ---------- hero ---------- */
 .hero{padding:64px 24px 80px}
@@ -358,6 +412,60 @@ textarea{min-height:110px;resize:vertical}
 .q-contact a{color:var(--concrete);text-decoration:none;border-bottom:1px solid rgba(236,233,226,.3)}
 @media(max-width:880px){.quote .wrap{grid-template-columns:1fr;gap:44px}.frow{grid-template-columns:1fr}}
 
+/* ---------- cost estimator ---------- */
+.est .wrap{max-width:780px}
+.est-card{
+  background:var(--paper);border:1px solid var(--line);border-radius:8px;
+  padding:34px 32px;margin-top:40px;
+}
+.est-label{
+  font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:12px;
+}
+.est-row{margin-bottom:28px}
+.est-sqft{display:flex;align-items:center;gap:12px}
+.est-sqft input{
+  font-family:'Archivo',sans-serif;font-size:22px;font-weight:700;color:var(--ink);
+  background:var(--concrete);border:1px solid var(--line);border-radius:var(--radius);
+  padding:13px 16px;width:200px;max-width:100%;
+}
+.est-sqft input:focus{outline:3px solid var(--seal);outline-offset:0;border-color:transparent}
+.est-sqft span{font-size:15px;color:var(--ink-soft)}
+.est-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px}
+.est-opt{
+  display:flex;flex-direction:column;gap:8px;text-align:left;cursor:pointer;
+  background:var(--concrete);border:1.5px solid var(--line);border-radius:6px;padding:16px;
+  font-family:'Archivo',sans-serif;
+  transition:border-color .15s ease,background .15s ease,box-shadow .15s ease;
+}
+.est-opt:hover{border-color:var(--ink-soft)}
+.est-opt.active{border-color:var(--seal);background:rgba(21,86,94,.06);box-shadow:inset 0 0 0 1px var(--seal)}
+.est-opt-name{font-weight:700;font-size:15.5px;color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.est-opt-rate{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);letter-spacing:.03em}
+.est-check{
+  width:20px;height:20px;border-radius:4px;border:1.5px solid var(--line);flex:none;
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;line-height:1;
+  background:transparent;transition:background .15s ease,border-color .15s ease;
+}
+.est-opt:not(.active) .est-check{color:transparent}
+.est-opt.active .est-check{background:var(--seal);border-color:var(--seal);color:#fff}
+@media(max-width:620px){.est-options{grid-template-columns:1fr}}
+.est-result{margin-top:30px;padding-top:28px;border-top:1px solid var(--line)}
+.est-r-label{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.est-number{font-size:clamp(32px,6vw,50px);font-weight:800;letter-spacing:-.02em;color:var(--ink);line-height:1.05;margin-top:10px}
+.est-number small{font-size:.36em;font-weight:600;color:var(--ink-soft);letter-spacing:0}
+.est-compare{margin-top:16px;font-size:15px;color:var(--ink-soft)}
+.est-compare b{color:var(--stain);font-weight:700}
+.est-min{margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:var(--ink-soft)}
+.est-min b{color:var(--ink);font-weight:700}
+.est-cta{margin-top:24px}
+.est-note{
+  margin-top:24px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.65;
+  color:var(--ink-soft);letter-spacing:.02em;
+  background:var(--concrete);border-left:2px solid var(--stain);padding:12px 14px;border-radius:0 4px 4px 0;
+}
+.est-note b{color:var(--ink)}
+
 /* ---------- footer ---------- */
 footer{background:#191B17;color:#8B887C;padding:36px 24px}
 footer .wrap{
@@ -403,10 +511,23 @@ footer a{color:#B5B1A4;text-decoration:none}
     <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=340&fit=crop&auto=format" alt="">
   </div>
   <div class="cs-overlay">
-    <span class="cs-tag">NORTH COUNTY SAN DIEGO</span>
-    <h2>Coming soon<br>to <em>your city.</em></h2>
-    <p>We're launching across coastal North County — Encinitas, Del Mar, La Jolla, Carlsbad, and beyond. Reserve your spot before the schedule fills.</p>
+    <div class="cs-slide active">
+      <span class="cs-tag">NORTH COUNTY SAN DIEGO</span>
+      <h2>Coming soon<br>to <em>your city.</em></h2>
+      <p>We're launching across coastal North County — Encinitas, Del Mar, La Jolla, Carlsbad, and beyond. Reserve your spot before the schedule fills.</p>
+    </div>
+    <div class="cs-slide">
+      <span class="cs-tag">FOUNDERS SPECIAL</span>
+      <h2>You just pay for <em>materials.</em></h2>
+      <p class="cs-price"><b>Zero labor cost</b> on your project — our founding clients only cover the cost of materials. Limited spots before launch.</p>
+    </div>
   </div>
+  <button class="cs-arrow prev" type="button" aria-label="Previous message">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+  </button>
+  <button class="cs-arrow next" type="button" aria-label="Next message">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+  </button>
 </div>
 
 <header>
@@ -415,7 +536,7 @@ footer a{color:#B5B1A4;text-decoration:none}
       <strong>STONEPRO</strong>
       <span>SAN DIEGO</span>
     </a>
-    <ul class="nav-links">
+    <ul class="nav-links" id="navLinks">
       <li class="dd"><a href="#services" aria-haspopup="true">Services</a>
       <ul class="dd-menu">
         <li><a href="concrete-staining.html">Concrete Staining &amp; Decorative Finishes</a></li>
@@ -427,6 +548,7 @@ footer a{color:#B5B1A4;text-decoration:none}
       </li>
       <li><a href="#work">Our Work</a></li>
       <li><a href="#process">Process</a></li>
+      <li><a href="#estimate">Estimate</a></li>
       <li class="dd"><a href="#areas" aria-haspopup="true">Service Area</a>
       <ul class="dd-menu">
         <li><a href="concrete-encinitas.html">Encinitas</a></li>
@@ -440,7 +562,12 @@ footer a{color:#B5B1A4;text-decoration:none}
       </li>
       <li><a href="anti-slip-pool-deck-sealing.html">HOA &amp; Pool Decks</a></li>
     </ul>
-    <a class="btn btn-solid" href="#quote">Reserve your spot</a>
+    <div class="nav-actions">
+      <a class="btn btn-solid" href="#quote">Reserve your spot</a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </nav>
 </header>
 
@@ -626,6 +753,58 @@ footer a{color:#B5B1A4;text-decoration:none}
     </div>
   </section>
 
+  <!-- COST ESTIMATOR -->
+  <section class="section est" id="estimate">
+    <div class="wrap">
+      <p class="eyebrow">Ballpark estimator</p>
+      <h2 style="margin-top:16px">A rough idea, before you ask.</h2>
+      <p class="lede">Enter your approximate square footage and tap what you're considering. You'll get a ballpark range — and what tearing the same concrete out and repouring it would cost instead.</p>
+
+      <div class="est-card">
+        <div class="est-row">
+          <label class="est-label" for="estSqft">Approximate square footage</label>
+          <div class="est-sqft">
+            <input id="estSqft" type="number" min="0" inputmode="numeric" placeholder="e.g. 800">
+            <span>sq ft</span>
+          </div>
+        </div>
+
+        <div class="est-row">
+          <span class="est-label">What are you considering?</span>
+          <div class="est-options">
+            <button type="button" class="est-opt" data-low="2.5" data-high="2.5" aria-pressed="false">
+              <span class="est-opt-name">Staining &mdash; 1 Color <span class="est-check" aria-hidden="true">&#10003;</span></span>
+              <span class="est-opt-rate">$2.50 / sq ft</span>
+            </button>
+            <button type="button" class="est-opt" data-low="3.5" data-high="5" aria-pressed="false">
+              <span class="est-opt-name">Staining &mdash; 2+ Colors <span class="est-check" aria-hidden="true">&#10003;</span></span>
+              <span class="est-opt-rate">$3.50&ndash;5.00 / sq ft</span>
+            </button>
+            <button type="button" class="est-opt" data-low="1" data-high="1.5" aria-pressed="false">
+              <span class="est-opt-name">Sealing <span class="est-check" aria-hidden="true">&#10003;</span></span>
+              <span class="est-opt-rate">$1.00&ndash;1.50 / sq ft</span>
+            </button>
+            <button type="button" class="est-opt" data-low="3" data-high="5" aria-pressed="false">
+              <span class="est-opt-name">Anti-Slip Grip <span class="est-check" aria-hidden="true">&#10003;</span></span>
+              <span class="est-opt-rate">$3.00&ndash;5.00 / sq ft</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="est-result">
+          <span class="est-r-label">Estimated range</span>
+          <div class="est-number" id="estNumber">&mdash; <small>enter sq ft &amp; pick a service</small></div>
+          <p class="est-compare" id="estCompare" hidden></p>
+          <p class="est-min" id="estMin" hidden>Reflects our <b>$800 job minimum</b>.</p>
+          <div class="est-cta">
+            <a class="btn btn-solid" href="#quote">Get your exact quote &rarr;</a>
+          </div>
+          <p class="est-note">These figures are a rough estimate for general guidance only &mdash; <b>not a quote</b>. Actual pricing depends on your concrete&#39;s size, condition, and finish. Request a free on-site assessment for exact numbers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- QUOTE -->
   <section class="section quote" id="quote">
     <div class="wrap">
@@ -732,6 +911,82 @@ footer a{color:#B5B1A4;text-decoration:none}
 </footer>
 
 <script>
+// Coming-soon banner — auto-rotates between messages; arrows swap manually
+(function(){
+  const slides = [...document.querySelectorAll('.cs-slide')];
+  if(slides.length < 2) return;
+  let i = 0, timer;
+  function show(n){
+    i = (n + slides.length) % slides.length;
+    slides.forEach((s, k) => s.classList.toggle('active', k === i));
+  }
+  const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function start(){ if(!reduce) timer = setInterval(() => show(i + 1), 8000); }
+  function reset(){ clearInterval(timer); start(); }
+  document.querySelector('.cs-arrow.next').addEventListener('click', () => { show(i + 1); reset(); });
+  document.querySelector('.cs-arrow.prev').addEventListener('click', () => { show(i - 1); reset(); });
+  start();
+})();
+
+// Mobile nav — hamburger toggles the link panel; tapping a link closes it
+(function(){
+  const toggle = document.getElementById('navToggle');
+  const menu = document.getElementById('navLinks');
+  if(!toggle || !menu) return;
+  function setOpen(open){
+    menu.classList.toggle('open', open);
+    toggle.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+  toggle.addEventListener('click', () => setOpen(!menu.classList.contains('open')));
+  menu.addEventListener('click', e => { if(e.target.closest('a')) setOpen(false); });
+})();
+
+// Cost estimator — sums selected services × sq ft into one range, with
+// a tear-out/repour comparison. Estimates only, not quotes.
+(function(){
+  const sqftEl = document.getElementById('estSqft');
+  const opts = [...document.querySelectorAll('.est-opt')];
+  const out = document.getElementById('estNumber');
+  const cmp = document.getElementById('estCompare');
+  if(!sqftEl) return;
+  const REPLACE_LOW = 8, REPLACE_HIGH = 16;           // $/sq ft tear-out & repour
+  const MIN = 800;                                    // job minimum
+  const minEl = document.getElementById('estMin');
+  const round = n => Math.round(n / 50) * 50;
+  const money = n => '$' + round(n).toLocaleString('en-US');
+  function update(){
+    const sqft = parseFloat(sqftEl.value) || 0;
+    const active = opts.filter(o => o.classList.contains('active'));
+    if(!sqft || !active.length){
+      out.innerHTML = '&mdash; <small>enter sq ft &amp; pick a service</small>';
+      cmp.hidden = true; minEl.hidden = true;
+      return;
+    }
+    let low = 0, high = 0;
+    active.forEach(o => { low += parseFloat(o.dataset.low); high += parseFloat(o.dataset.high); });
+    low *= sqft; high *= sqft;
+    const floored = low < MIN || high < MIN;
+    low = Math.max(low, MIN); high = Math.max(high, MIN);
+    const lo = money(low), hi = money(high);
+    out.innerHTML = (lo === hi ? lo : lo + '&ndash;' + hi) + ' <small>estimated</small>';
+    cmp.hidden = false;
+    cmp.innerHTML = 'Tear out &amp; repour the same area: <b>' +
+      money(sqft * REPLACE_LOW) + '&ndash;' + money(sqft * REPLACE_HIGH) +
+      '</b> (plain to stamped).';
+    minEl.hidden = !floored;
+  }
+  opts.forEach(o => o.addEventListener('click', () => {
+    const on = !o.classList.contains('active');
+    o.classList.toggle('active', on);
+    o.setAttribute('aria-pressed', String(on));
+    update();
+  }));
+  sqftEl.addEventListener('input', update);
+  update();
+})();
+
 // Before/after slider — keyboard accessible via the range input
 (function(){
   const range = document.getElementById('baRange');
