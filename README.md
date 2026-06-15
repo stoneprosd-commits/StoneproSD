@@ -11,7 +11,6 @@ stoneprosd-site/
 ├── concrete-sealing.html               ← Service: Concrete Sealing
 ├── concrete-restoration.html           ← Service: Concrete Restoration
 ├── anti-slip-pool-deck-sealing.html    ← Service: Anti-Slip Pool Deck Sealing
-├── waterslide-rock-restoration.html    ← Service: Waterslide & Rock Restoration
 ├── concrete-encinitas.html             ← City: Encinitas
 ├── concrete-del-mar.html               ← City: Del Mar
 ├── concrete-solana-beach.html          ← City: Solana Beach
