@@ -410,59 +410,6 @@ textarea{min-height:110px;resize:vertical}
 .q-contact a{color:var(--concrete);text-decoration:none;border-bottom:1px solid rgba(236,233,226,.3)}
 @media(max-width:880px){.quote .wrap{grid-template-columns:1fr;gap:44px}.frow{grid-template-columns:1fr}}
 
-/* ---------- cost estimator ---------- */
-.est .wrap{max-width:780px}
-.est-card{
-  background:var(--paper);border:1px solid var(--line);border-radius:8px;
-  padding:34px 32px;margin-top:40px;
-}
-.est-label{
-  font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:12px;
-}
-.est-row{margin-bottom:28px}
-.est-sqft{display:flex;align-items:center;gap:12px}
-.est-sqft input{
-  font-family:'Archivo',sans-serif;font-size:22px;font-weight:700;color:var(--ink);
-  background:var(--concrete);border:1px solid var(--line);border-radius:var(--radius);
-  padding:13px 16px;width:200px;max-width:100%;
-}
-.est-sqft input:focus{outline:3px solid var(--seal);outline-offset:0;border-color:transparent}
-.est-sqft span{font-size:15px;color:var(--ink-soft)}
-.est-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px}
-.est-opt{
-  display:flex;flex-direction:column;gap:8px;text-align:left;cursor:pointer;
-  background:var(--concrete);border:1.5px solid var(--line);border-radius:6px;padding:16px;
-  font-family:'Archivo',sans-serif;
-  transition:border-color .15s ease,background .15s ease,box-shadow .15s ease;
-}
-.est-opt:hover{border-color:var(--ink-soft)}
-.est-opt.active{border-color:var(--seal);background:rgba(21,86,94,.06);box-shadow:inset 0 0 0 1px var(--seal)}
-.est-opt-name{font-weight:700;font-size:15.5px;color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:8px}
-.est-opt-rate{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);letter-spacing:.03em}
-.est-check{
-  width:20px;height:20px;border-radius:4px;border:1.5px solid var(--line);flex:none;
-  display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;line-height:1;
-  background:transparent;transition:background .15s ease,border-color .15s ease;
-}
-.est-opt:not(.active) .est-check{color:transparent}
-.est-opt.active .est-check{background:var(--seal);border-color:var(--seal);color:#fff}
-@media(max-width:620px){.est-options{grid-template-columns:1fr}}
-.est-result{margin-top:30px;padding-top:28px;border-top:1px solid var(--line)}
-.est-r-label{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
-.est-number{font-size:clamp(32px,6vw,50px);font-weight:800;letter-spacing:-.02em;color:var(--ink);line-height:1.05;margin-top:10px}
-.est-number small{font-size:.36em;font-weight:600;color:var(--ink-soft);letter-spacing:0}
-.est-compare{margin-top:16px;font-size:15px;color:var(--ink-soft)}
-.est-compare b{color:var(--stain);font-weight:700}
-.est-min{margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:var(--ink-soft)}
-.est-min b{color:var(--ink);font-weight:700}
-.est-cta{margin-top:24px}
-.est-note{
-  margin-top:24px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.65;
-  color:var(--ink-soft);letter-spacing:.02em;
-  background:var(--concrete);border-left:2px solid var(--stain);padding:12px 14px;border-radius:0 4px 4px 0;
-}
-.est-note b{color:var(--ink)}
 
 /* ---------- footer ---------- */
 footer{background:#191B17;color:#8B887C;padding:36px 24px}
@@ -545,7 +492,6 @@ footer a{color:#B5B1A4;text-decoration:none}
       </li>
       <li><a href="#work">Our Work</a></li>
       <li><a href="#process">Process</a></li>
-      <li><a href="#estimate">Estimate</a></li>
       <li class="dd"><a href="#areas" aria-haspopup="true">Service Area</a>
       <ul class="dd-menu">
         <li><a href="concrete-encinitas.html">Encinitas</a></li>
@@ -743,57 +689,6 @@ footer a{color:#B5B1A4;text-decoration:none}
     </div>
   </section>
 
-  <!-- COST ESTIMATOR -->
-  <section class="section est" id="estimate">
-    <div class="wrap">
-      <p class="eyebrow">Ballpark estimator</p>
-      <h2 style="margin-top:16px">A rough idea, before you ask.</h2>
-      <p class="lede">Enter your approximate square footage and tap what you're considering. You'll get a ballpark range — and what tearing the same concrete out and repouring it would cost instead.</p>
-
-      <div class="est-card">
-        <div class="est-row">
-          <label class="est-label" for="estSqft">Approximate square footage</label>
-          <div class="est-sqft">
-            <input id="estSqft" type="number" min="0" inputmode="numeric" placeholder="e.g. 800">
-            <span>sq ft</span>
-          </div>
-        </div>
-
-        <div class="est-row">
-          <span class="est-label">What are you considering?</span>
-          <div class="est-options">
-            <button type="button" class="est-opt" data-low="2.5" data-high="2.5" aria-pressed="false">
-              <span class="est-opt-name">Staining &mdash; 1 Color <span class="est-check" aria-hidden="true">&#10003;</span></span>
-              <span class="est-opt-rate">$2.50 / sq ft</span>
-            </button>
-            <button type="button" class="est-opt" data-low="3.5" data-high="5" aria-pressed="false">
-              <span class="est-opt-name">Staining &mdash; 2+ Colors <span class="est-check" aria-hidden="true">&#10003;</span></span>
-              <span class="est-opt-rate">$3.50&ndash;5.00 / sq ft</span>
-            </button>
-            <button type="button" class="est-opt" data-low="1" data-high="1.5" aria-pressed="false">
-              <span class="est-opt-name">Sealing <span class="est-check" aria-hidden="true">&#10003;</span></span>
-              <span class="est-opt-rate">$1.00&ndash;1.50 / sq ft</span>
-            </button>
-            <button type="button" class="est-opt" data-low="3" data-high="5" aria-pressed="false">
-              <span class="est-opt-name">Anti-Slip Grip <span class="est-check" aria-hidden="true">&#10003;</span></span>
-              <span class="est-opt-rate">$3.00&ndash;5.00 / sq ft</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="est-result">
-          <span class="est-r-label">Estimated range</span>
-          <div class="est-number" id="estNumber">&mdash; <small>enter sq ft &amp; pick a service</small></div>
-          <p class="est-compare" id="estCompare" hidden></p>
-          <p class="est-min" id="estMin" hidden>Reflects our <b>$800 job minimum</b>.</p>
-          <div class="est-cta">
-            <a class="btn btn-solid" href="#quote">Get your exact quote &rarr;</a>
-          </div>
-          <p class="est-note">These figures are a rough estimate for general guidance only &mdash; <b>not a quote</b>. Actual pricing depends on your concrete&#39;s size, condition, and finish. Request a free on-site assessment for exact numbers.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- QUOTE -->
   <section class="section quote" id="quote">
@@ -929,49 +824,6 @@ footer a{color:#B5B1A4;text-decoration:none}
   menu.addEventListener('click', e => { if(e.target.closest('a')) setOpen(false); });
 })();
 
-// Cost estimator — sums selected services × sq ft into one range, with
-// a tear-out/repour comparison. Estimates only, not quotes.
-(function(){
-  const sqftEl = document.getElementById('estSqft');
-  const opts = [...document.querySelectorAll('.est-opt')];
-  const out = document.getElementById('estNumber');
-  const cmp = document.getElementById('estCompare');
-  if(!sqftEl) return;
-  const REPLACE_LOW = 8, REPLACE_HIGH = 16;           // $/sq ft tear-out & repour
-  const MIN = 800;                                    // job minimum
-  const minEl = document.getElementById('estMin');
-  const round = n => Math.round(n / 50) * 50;
-  const money = n => '$' + round(n).toLocaleString('en-US');
-  function update(){
-    const sqft = parseFloat(sqftEl.value) || 0;
-    const active = opts.filter(o => o.classList.contains('active'));
-    if(!sqft || !active.length){
-      out.innerHTML = '&mdash; <small>enter sq ft &amp; pick a service</small>';
-      cmp.hidden = true; minEl.hidden = true;
-      return;
-    }
-    let low = 0, high = 0;
-    active.forEach(o => { low += parseFloat(o.dataset.low); high += parseFloat(o.dataset.high); });
-    low *= sqft; high *= sqft;
-    const floored = low < MIN || high < MIN;
-    low = Math.max(low, MIN); high = Math.max(high, MIN);
-    const lo = money(low), hi = money(high);
-    out.innerHTML = (lo === hi ? lo : lo + '&ndash;' + hi) + ' <small>estimated</small>';
-    cmp.hidden = false;
-    cmp.innerHTML = 'Tear out &amp; repour the same area: <b>' +
-      money(sqft * REPLACE_LOW) + '&ndash;' + money(sqft * REPLACE_HIGH) +
-      '</b> (plain to stamped).';
-    minEl.hidden = !floored;
-  }
-  opts.forEach(o => o.addEventListener('click', () => {
-    const on = !o.classList.contains('active');
-    o.classList.toggle('active', on);
-    o.setAttribute('aria-pressed', String(on));
-    update();
-  }));
-  sqftEl.addEventListener('input', update);
-  update();
-})();
 
 // Before/after slider — keyboard accessible via the range input
 (function(){
