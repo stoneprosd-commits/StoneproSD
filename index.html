@@ -486,7 +486,7 @@ footer a{color:#B5B1A4;text-decoration:none}
       <span>ENCINITAS<b>▪</b>CONCRETE STAINING<b>▪</b>DEL MAR<b>▪</b>POOL DECK SEALING<b>▪</b>LA JOLLA<b>▪</b>ROCK RESTORATION<b>▪</b>CARLSBAD<b>▪</b>CONCRETE SEALING<b>▪</b>RANCHO SANTA FE<b>▪</b>RESTORATION<b>▪</b>SOLANA BEACH<b>▪</b>ANTI-SLIP DECKS<b>▪</b>CARMEL VALLEY<b>▪</b>DECORATIVE FINISHES<b>▪</b></span>
     </div>
   </div>
-  <a class="announce-cta" href="mailto:quotes@stoneprosd.com?subject=Reserve%20My%20Spot%20%E2%80%94%20StonePro%20SD&body=City%3A%20%0AProject%20type%3A%20%0AApproximate%20size%3A%20">RESERVE YOUR SPOT</a>
+  <a class="announce-cta" href="mailto:stoneprosd@gmail.com?subject=Reserve%20My%20Spot%20%E2%80%94%20StonePro%20SD&body=City%3A%20%0AProject%20type%3A%20%0AApproximate%20size%3A%20">RESERVE YOUR SPOT</a>
 </div>
 
 <!-- COMING SOON PHOTO BANNER -->
@@ -813,7 +813,7 @@ footer a{color:#B5B1A4;text-decoration:none}
         <h2 style="margin-top:16px;color:var(--concrete)">Tell us about your concrete.</h2>
         <p>We&#39;re getting ready to launch across coastal North County San Diego. Tell us about your project and you&#39;ll be first in line when the schedule opens &mdash; early access, no pressure, no obligation.</p>
         <div class="q-contact">
-          <span>EMAIL — <a href="mailto:quotes@stoneprosd.com">quotes@stoneprosd.com</a></span>
+          <span>EMAIL — <a href="mailto:stoneprosd@gmail.com">stoneprosd@gmail.com</a></span>
           <span>STATUS &mdash; PRE-LAUNCH &middot; TAKING EARLY INTEREST</span>
         </div>
       </div>
@@ -860,9 +860,7 @@ footer a{color:#B5B1A4;text-decoration:none}
           <textarea name="details" placeholder="Approximate size, current condition, what you'd like it to look like…"></textarea>
         </label>
         <button class="btn btn-solid" type="submit">Put me on the launch list</button>
-        <div class="q-success" id="qSuccess">
-          <strong>You&#39;re on the list.</strong> We&#39;ll be in touch as soon as our schedule opens in your area.
-        </div>
+        <div class="q-success" id="qSuccess"><strong>Almost there &mdash;</strong> your email app should open with your project details ready to send. Just hit send and we&#39;ll be in touch.</div>
       </form>
     </div>
   </section>
@@ -896,7 +894,7 @@ footer a{color:#B5B1A4;text-decoration:none}
       <div>
         <div style="font-weight:700;color:#C8C2B4;margin-bottom:12px;letter-spacing:.12em">CONTACT</div>
         <div style="display:flex;flex-direction:column;gap:8px">
-          <a href="mailto:quotes@stoneprosd.com">quotes@stoneprosd.com</a>
+          <a href="mailto:stoneprosd@gmail.com">stoneprosd@gmail.com</a>
           <span style="color:#8B887C">Launching soon</span>
           <a href="#quote" style="color:#CFE8EB;margin-top:6px;font-weight:600">Reserve your spot →</a>
         </div>
@@ -1005,10 +1003,16 @@ footer a{color:#B5B1A4;text-decoration:none}
 document.getElementById('quoteForm').addEventListener('submit', function(e){
   e.preventDefault();
   if(!this.checkValidity()){ this.reportValidity(); return; }
-  // TODO: POST form data to your CRM endpoint here, e.g.:
-  // fetch('YOUR_CRM_WEBHOOK_URL', { method:'POST', body:new FormData(this) })
+  var f = this, val = function(n){ var el = f.elements[n]; return el ? el.value.trim() : ''; };
+  var body = 'Name: ' + val('name') + '\n' +
+    'Phone: ' + val('phone') + '\n' +
+    'Email: ' + val('email') + '\n' +
+    'City: ' + val('city') + '\n' +
+    'Service: ' + val('service') + '\n\n' +
+    'Project details:\n' + val('details') + '\n';
+  var subject = 'Project inquiry — StonePro SD' + (val('city') ? ' (' + val('city') + ')' : '');
+  window.location.href = 'mailto:stoneprosd@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   document.getElementById('qSuccess').style.display = 'block';
-  this.querySelector('button[type=submit]').disabled = true;
 });
 </script>
 

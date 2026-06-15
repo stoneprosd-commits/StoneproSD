@@ -21,7 +21,7 @@
     "@type": "LocalBusiness",
     "name": "StonePro SD",
     "telephone": "+1-000-000-0000",
-    "email": "quotes@stoneprosd.com",
+    "email": "stoneprosd@gmail.com",
     "address": {
      "@type": "PostalAddress",
      "addressRegion": "CA",
@@ -444,7 +444,7 @@ footer a{color:#B5B1A4;text-decoration:none}
         <h2 style="margin-top:16px;color:var(--concrete)">Be first on the schedule.</h2>
         <p>We&#39;re getting ready to launch across coastal North County San Diego. Tell us about your project and you&#39;ll be first in line when the schedule opens &mdash; early access, no pressure, no obligation.</p>
         <div class="q-contact">
-          <span>EMAIL &mdash; <a href="mailto:quotes@stoneprosd.com">quotes@stoneprosd.com</a></span>
+          <span>EMAIL &mdash; <a href="mailto:stoneprosd@gmail.com">stoneprosd@gmail.com</a></span>
           <span>STATUS &mdash; PRE-LAUNCH &middot; TAKING EARLY INTEREST</span>
         </div>
       </div>
@@ -478,7 +478,7 @@ footer a{color:#B5B1A4;text-decoration:none}
           <textarea name="details" placeholder="Approximate size, current condition, what you&#39;d like it to look like&hellip;"></textarea>
         </label>
         <button class="btn btn-solid" type="submit">Put me on the launch list</button>
-        <div class="q-success" id="qSuccess"><strong>You&#39;re on the list.</strong> We&#39;ll be in touch as soon as our schedule opens in your area.</div>
+        <div class="q-success" id="qSuccess"><strong>Almost there &mdash;</strong> your email app should open with your project details ready to send. Just hit send and we&#39;ll be in touch.</div>
       </form>
     </div>
   </section>
@@ -510,9 +510,16 @@ footer a{color:#B5B1A4;text-decoration:none}
 document.getElementById('quoteForm').addEventListener('submit', function(e){
   e.preventDefault();
   if(!this.checkValidity()){ this.reportValidity(); return; }
-  // TODO: POST form data to your CRM endpoint (same webhook as the homepage form)
-  document.getElementById('qSuccess').style.display='block';
-  this.querySelector('button[type=submit]').disabled=true;
+  var f = this, val = function(n){ var el = f.elements[n]; return el ? el.value.trim() : ''; };
+  var body = 'Name: ' + val('name') + '\n' +
+    'Phone: ' + val('phone') + '\n' +
+    'Email: ' + val('email') + '\n' +
+    'City: ' + val('city') + '\n' +
+    'Service: ' + val('service') + '\n\n' +
+    'Project details:\n' + val('details') + '\n';
+  var subject = 'Project inquiry — StonePro SD' + (val('city') ? ' (' + val('city') + ')' : '');
+  window.location.href = 'mailto:stoneprosd@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  document.getElementById('qSuccess').style.display = 'block';
 });
 </script>
 </body>
